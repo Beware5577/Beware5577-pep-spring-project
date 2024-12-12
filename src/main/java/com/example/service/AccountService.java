@@ -12,16 +12,6 @@ public class AccountService {
 
     private AccountRepository accountRepository;
 
-
-    /*
-    * Constructor with no provided repository
-    */
-    public AccountService()
-    {
-        accountRepository = new AccountRepository();
-    }
-
-
     /*
     * Constructor with provided repository
     * 
