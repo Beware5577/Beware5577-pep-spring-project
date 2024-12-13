@@ -1,8 +1,6 @@
 package com.example.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.entity.Message;
@@ -19,19 +17,15 @@ public interface MessageRepository extends JpaRepository<Message, Integer>{
      * 
      * @return List of messages made by account.
      */
-    @Query("FROM Message WHERE postedBy = :varPostedBy")
-    List<Message> findByPostedBy(@Param("varPostedBy") int postedBy);
+    List<Message> findByPostedBy(int postedBy);
 
 
     /**
-     * Finds a message without the message id.
+     * Finds message by id
      * 
-     * @param messageText
-     * @param postedBy
-     * @param timePostedEpoch
+     * @param messageId
      * 
-     * @return Found message with id.
+     * @return Message with given id.
      */
-    @Query("FROM Message WHERE messageText = :varMessageText AND postedBy = :varPostedBy AND timePostedEpoch = :varTimePostedEpoch")
-    Message findWithoutId(@Param("varMessageText") String messageText, @Param("varPostedBy") int postedBy, @Param("varTimePostedEpoch") Long timePostedEpoch);
+    Message findByMessageId(int messageId);
 }

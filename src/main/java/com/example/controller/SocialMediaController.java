@@ -9,13 +9,9 @@ import com.example.service.MessageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-//import java.util.ArrayList;
 import java.util.List;
-
-//import javax.websocket.server.PathParam;
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller using Spring. The endpoints you will need can be
@@ -107,7 +103,7 @@ public class SocialMediaController {
      * @return A response entity containing all messages and a status code
      */
     @GetMapping("/messages/{message_id}")
-    public @ResponseBody ResponseEntity<Message> getMessageByIdHandler(@PathVariable int messageId)
+    public @ResponseBody ResponseEntity<Message> getMessageByIdHandler(@PathVariable("message_id") int messageId)
     {
         //Will return with status code and a message
         return messageService.getMessageById(messageId);
@@ -122,7 +118,7 @@ public class SocialMediaController {
      * @return A response entity containing a deleted message and a status code
      */
     @DeleteMapping("/messages/{message_id}")
-    public @ResponseBody ResponseEntity<String> deleteMessageByIdHandler(@PathVariable int messageId)
+    public @ResponseBody ResponseEntity<Integer> deleteMessageByIdHandler(@PathVariable("message_id") int messageId)
     {
         //Will return with status code and a deleted message
         return messageService.deleteMessageById(messageId);
@@ -139,10 +135,10 @@ public class SocialMediaController {
      * @return A response entity containing an updated message and a status code
      */
     @PatchMapping("/messages/{message_id}")
-    public @ResponseBody ResponseEntity<String> patchMessageByIdHandler(@PathVariable int messageId, @RequestBody String messageText)
+    public @ResponseBody ResponseEntity<Integer> patchMessageByIdHandler(@PathVariable("message_id") int messageId, @RequestBody Message message)
     {
         //Will return with status code and an updated message
-        return messageService.patchMessageById(messageId, messageText);
+        return messageService.patchMessageById(messageId, message.getMessageText());
     }
 
 
@@ -154,9 +150,9 @@ public class SocialMediaController {
      * @return A response entity containing a list of account messages and a status code
      */
     @GetMapping("/accounts/{account_id}/messages")
-    public @ResponseBody ResponseEntity<List<Message>> getAccountMessagesHandler(@PathVariable int messageId)
+    public @ResponseBody ResponseEntity<List<Message>> getAccountMessagesHandler(@PathVariable("account_id") int accountId)
     {
         //Will return with status code and a message list
-        return messageService.getMessagesByAccountId(messageId);
+        return messageService.getMessagesByAccountId(accountId);
     }
 }

@@ -1,8 +1,6 @@
 package com.example.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.entity.Account;
@@ -17,8 +15,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer>{
      * 
      * @return Account with given username.
      */
-    @Query("SELECT a FROM Account a WHERE a.username = :varUsername")
-    Account findByUsername(@Param("varUsername") String username);
+    Account findByUsername(String username);
 
 
     /**
@@ -29,7 +26,15 @@ public interface AccountRepository extends JpaRepository<Account, Integer>{
      * 
      * @return Account with given username and password.
      */
-    @Query("SELECT a FROM Account a WHERE a.username = :varUsername AND a.password = :varPassword")
-    Account findByUsernameAndPassword(@Param("varUsername") String username, @Param("varPassword") String password);
+    Account findByUsernameAndPassword(String username, String password);
 
+
+    /**
+     * Finds an account with given id
+     * 
+     * @param accountId
+     * 
+     * @return Account with given id.
+     */
+    Account findByAccountId(int accountId);
 }
