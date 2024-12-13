@@ -45,7 +45,7 @@ public class MessageService {
         messageRepository.save(message);
 
         //Returning created message with id
-        return ResponseEntity.ok(messageRepository.findWithoutId(message.getMessageText(), message.getPostedBy(), message.getTimePostedEpoch()).get());
+        return ResponseEntity.ok(messageRepository.findWithoutId(message.getMessageText(), message.getPostedBy(), message.getTimePostedEpoch()));
     }
 
 
