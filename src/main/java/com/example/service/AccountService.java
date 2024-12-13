@@ -39,14 +39,14 @@ public class AccountService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
         //Checking if duplicate account exists
-        if(accountRepository.findByUsername(account.getUsername()).get() != null)
+        if(accountRepository.findByUsername(account.getUsername()) != null)
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         
         //Persisting account to database
         accountRepository.save(account);
 
         //Getting account to return with id
-        return ResponseEntity.ok(accountRepository.findByUsername(account.getUsername()).get());
+        return ResponseEntity.ok(accountRepository.findByUsername(account.getUsername()));
     }
 
 
