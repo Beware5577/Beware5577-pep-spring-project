@@ -107,10 +107,10 @@ public class SocialMediaController {
      * @return A response entity containing all messages and a status code
      */
     @GetMapping("/messages/{message_id}")
-    public @ResponseBody ResponseEntity<Message> getMessageByIdHandler(@PathVariable int Id)
+    public @ResponseBody ResponseEntity<Message> getMessageByIdHandler(@PathVariable int messageId)
     {
         //Will return with status code and a message
-        return messageService.getMessageById(Id);
+        return messageService.getMessageById(messageId);
     }
 
 
@@ -122,10 +122,10 @@ public class SocialMediaController {
      * @return A response entity containing a deleted message and a status code
      */
     @DeleteMapping("/messages/{message_id}")
-    public @ResponseBody ResponseEntity<Integer> deleteMessageByIdHandler(@PathVariable int Id)
+    public @ResponseBody ResponseEntity<String> deleteMessageByIdHandler(@PathVariable int messageId)
     {
         //Will return with status code and a deleted message
-        return messageService.deleteMessageById(Id);
+        return messageService.deleteMessageById(messageId);
     }
 
 
@@ -139,10 +139,10 @@ public class SocialMediaController {
      * @return A response entity containing an updated message and a status code
      */
     @PatchMapping("/messages/{message_id}")
-    public @ResponseBody ResponseEntity<Integer> patchMessageByIdHandler(@PathVariable int Id, @RequestBody String messageText)
+    public @ResponseBody ResponseEntity<String> patchMessageByIdHandler(@PathVariable int messageId, @RequestBody String messageText)
     {
         //Will return with status code and an updated message
-        return messageService.patchMessageById(Id, messageText);
+        return messageService.patchMessageById(messageId, messageText);
     }
 
 
@@ -154,9 +154,9 @@ public class SocialMediaController {
      * @return A response entity containing a list of account messages and a status code
      */
     @GetMapping("/accounts/{account_id}/messages")
-    public @ResponseBody ResponseEntity<List<Message>> getAccountMessagesHandler(@PathVariable int Id)
+    public @ResponseBody ResponseEntity<List<Message>> getAccountMessagesHandler(@PathVariable int messageId)
     {
         //Will return with status code and a message list
-        return messageService.getMessagesByAccountId(Id);
+        return messageService.getMessagesByAccountId(messageId);
     }
 }

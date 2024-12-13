@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.repository.AccountRepository;
 import com.example.entity.Account;
 
+@Service
 public class AccountService {
 
     private AccountRepository accountRepository;
@@ -61,7 +62,7 @@ public class AccountService {
     public ResponseEntity<Account> logInAccount(Account account)
     {
         //Getting account to check
-        Account loggedAccount = accountRepository.findByUsernameAndPassword(account.getUsername(), account.getPassword()).get();
+        Account loggedAccount = accountRepository.findByUsernameAndPassword(account.getUsername(), account.getPassword());
 
         //Checking if account matches username and password
         if(loggedAccount == null)

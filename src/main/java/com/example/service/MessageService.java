@@ -10,9 +10,10 @@ import com.example.entity.Message;
 
 import java.util.List;
 
+@Service
 public class MessageService {
 
-    private MessageRepository messageRepository;
+   private MessageRepository messageRepository;
 
     /*
     * Constructor with provided repository
@@ -83,7 +84,7 @@ public class MessageService {
     * @return Returns a response entity with a status code and number
     *         of rows changed in the body.
     */
-    public ResponseEntity<Integer> deleteMessageById(int messageId)
+    public ResponseEntity<String> deleteMessageById(int messageId)
     {
         //Checking if message exists to delete
         if(messageRepository.findById(messageId).get() != null)
@@ -92,11 +93,11 @@ public class MessageService {
             messageRepository.deleteById(messageId);
 
             //Message was deleted 1 row changed
-            return ResponseEntity.ok(1);
+            return ResponseEntity.ok("1");
         }
 
             //No message deleted no row change
-            return ResponseEntity.ok(null);
+            return ResponseEntity.ok("");
     }
 
 
@@ -111,22 +112,22 @@ public class MessageService {
     * @return Returns a response entity with a status code and number
     *         of rows changed in the body. 
     */
-    public ResponseEntity<Integer> patchMessageById(int messageId, String messageText)
+    public ResponseEntity<String> patchMessageById(int messageId, String messageText)
     {
         //Checking if message text is viable
         if(messageText.equals("") == true || messageText.length() > 255)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
 
         //Checking if message exists
         Message updatedMessage = messageRepository.findById(messageId).get();
         if(updatedMessage == null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
 
         //Updating message
         updatedMessage.setMessageText(messageText);
         messageRepository.save(updatedMessage);
 
-        return ResponseEntity.ok(1);
+        return ResponseEntity.status(HttpStatus.OK).body("1");
 
     }
 
@@ -141,6 +142,6 @@ public class MessageService {
     */
     public ResponseEntity<List<Message>> getMessagesByAccountId(int accountId)
     {
-        return ResponseEntity.ok(messageRepository.findByPostedBy(accountId));
+        return ResponseEntity.status(HttpStatus.OK).body(messageRepository.findByPostedBy(accountId));
     }
 }
