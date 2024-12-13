@@ -122,7 +122,7 @@ public class SocialMediaController {
      * @return A response entity containing a deleted message and a status code
      */
     @DeleteMapping("/messages/{message_id}")
-    public @ResponseBody ResponseEntity<Message> deleteMessageByIdHandler(@PathVariable int Id)
+    public @ResponseBody ResponseEntity<Integer> deleteMessageByIdHandler(@PathVariable int Id)
     {
         //Will return with status code and a deleted message
         return messageService.deleteMessageById(Id);
@@ -134,13 +134,15 @@ public class SocialMediaController {
      * 
      * @param Id An integer id for a message
      * 
+     * @param messageText Text to update a message's text
+     * 
      * @return A response entity containing an updated message and a status code
      */
     @PatchMapping("/messages/{message_id}")
-    public @ResponseBody ResponseEntity<Message> patchMessageByIdHandler(@PathVariable int Id)
+    public @ResponseBody ResponseEntity<Integer> patchMessageByIdHandler(@PathVariable int Id, @RequestBody String messageText)
     {
         //Will return with status code and an updated message
-        return messageService.patchMessageById(Id);
+        return messageService.patchMessageById(Id, messageText);
     }
 
 
